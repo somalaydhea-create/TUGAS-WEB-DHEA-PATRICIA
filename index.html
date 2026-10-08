@@ -1,0 +1,1969 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chiza Salon - Dashboard</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f7f5f7;
+    color: #333;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: white;
+    border-right: 1px solid #e7e7e7;
+    padding: 25px 18px;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.logo h2 {
+    color: #8b5e83;
+    letter-spacing: 1px;
+}
+
+.logo p {
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.menu-title {
+    font-size: 11px;
+    color: #aaa;
+    margin: 20px 10px 10px;
+    text-transform: uppercase;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 15px;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: #666;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.menu a:hover {
+    background: #f4eaf2;
+    color: #8b5e83;
+}
+
+.menu a.active {
+    background: #8b5e83;
+    color: white;
+}
+
+.menu-icon {
+    width: 22px;
+    text-align: center;
+}
+
+/* ================= MAIN ================= */
+
+.main {
+    margin-left: 240px;
+    padding: 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.topbar h1 {
+    font-size: 28px;
+}
+
+.topbar p {
+    color: #999;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile p {
+    margin-top: 3px;
+}
+
+.profile-circle {
+    width: 42px;
+    height: 42px;
+    background: #8b5e83;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* ================= PAGE ================= */
+
+.page {
+    display: none;
+}
+
+.page.active-page {
+    display: block;
+}
+
+/* ================= CARDS ================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 15px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.04);
+}
+
+.card-title {
+    color: #999;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.card-number {
+    font-size: 28px;
+    font-weight: bold;
+    color: #8b5e83;
+}
+
+/* ================= CONTENT ================= */
+
+.content-box {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.04);
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.content-header h2 {
+    font-size: 20px;
+}
+
+.btn-add {
+    border: none;
+    background: #8b5e83;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-add:hover {
+    background: #704a69;
+}
+
+/* ================= FILTER ================= */
+
+.filter-area {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-area input,
+.filter-area select {
+    padding: 11px 13px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+}
+
+.filter-area input {
+    flex: 1;
+    min-width: 220px;
+}
+
+/* ================= TABLE ================= */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+thead {
+    background: #faf7fa;
+}
+
+th {
+    text-align: left;
+    padding: 15px 12px;
+    font-size: 12px;
+    color: #888;
+}
+
+td {
+    padding: 15px 12px;
+    border-top: 1px solid #eee;
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background: #fcf9fc;
+}
+
+.kode {
+    color: #8b5e83;
+    font-weight: bold;
+}
+
+.customer-name {
+    font-weight: bold;
+}
+
+.phone {
+    color: #999;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* ================= STATUS ================= */
+
+.status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.menunggu {
+    background: #fff4d8;
+    color: #b78300;
+}
+
+.dikonfirmasi {
+    background: #e3f6e9;
+    color: #278248;
+}
+
+.selesai {
+    background: #e5edf8;
+    color: #3c6594;
+}
+
+.ditolak {
+    background: #fde5e5;
+    color: #b84242;
+}
+
+/* ================= BUTTON ================= */
+
+.actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    border: none;
+    padding: 7px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.confirm {
+    background: #e5f6ea;
+    color: #287b45;
+}
+
+.reject {
+    background: #fde7e7;
+    color: #b23b3b;
+}
+
+.edit {
+    background: #eee5f5;
+    color: #754d80;
+}
+
+.finish {
+    background: #e3edf8;
+    color: #38628e;
+}
+
+.view {
+    background: #eee;
+    color: #555;
+}
+
+.action-btn:hover {
+    opacity: .7;
+}
+
+/* ================= MODAL ================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-box {
+    background: white;
+    width: 450px;
+    max-width: 90%;
+    padding: 25px;
+    border-radius: 15px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-box h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-cancel,
+.btn-save {
+    padding: 10px 17px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    background: #eee;
+}
+
+.btn-save {
+    background: #8b5e83;
+    color: white;
+}
+
+/* ================= INFO ================= */
+
+.info-box {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.info-box h2 {
+    margin-bottom: 10px;
+    color: #8b5e83;
+}
+
+.info-box p {
+    color: #777;
+    line-height: 1.7;
+}
+
+.simple-list {
+    list-style: none;
+}
+
+.simple-list li {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.simple-list li:last-child {
+    border-bottom: none;
+}
+
+.badge {
+    background: #f1e5ef;
+    color: #8b5e83;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px) {
+
+    .cards {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width:700px) {
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .profile {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <h2>CHIZA SALON</h2>
+        <p>Beauty & Care</p>
+    </div>
+
+    <div class="menu-title">Menu Utama</div>
+
+    <nav class="menu">
+
+        <a class="active" onclick="showPage('dashboard', this)">
+            <span class="menu-icon">▣</span>
+            Dashboard
+        </a>
+
+        <a onclick="showPage('reservasi', this)">
+            <span class="menu-icon">▤</span>
+            Reservasi
+        </a>
+
+        <a onclick="showPage('pelanggan', this)">
+            <span class="menu-icon">♙</span>
+            Pelanggan
+        </a>
+
+        <a onclick="showPage('treatment', this)">
+            <span class="menu-icon">✂</span>
+            Treatment
+        </a>
+
+        <a onclick="showPage('karyawan', this)">
+            <span class="menu-icon">♙</span>
+            Karyawan
+        </a>
+
+    </nav>
+
+    <div class="menu-title">Lainnya</div>
+
+    <nav class="menu">
+
+        <a onclick="showPage('pengaturan', this)">
+            <span class="menu-icon">⚙</span>
+            Pengaturan
+        </a>
+
+        <a onclick="logout()">
+            <span class="menu-icon">⇥</span>
+            Keluar
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+    <div class="topbar">
+
+        <div>
+            <h1 id="pageTitle">Dashboard</h1>
+            <p id="pageDescription">
+                Selamat datang di sistem Chiza Salon
+            </p>
+        </div>
+
+        <div class="profile">
+
+            <div>
+                <b>Admin</b>
+                <p>Administrator</p>
+            </div>
+
+            <div class="profile-circle">
+                A
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboard" class="page active-page">
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="card-title">
+                    Total Reservasi
+                </div>
+
+                <div class="card-number" id="totalData">
+                    0
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    Menunggu
+                </div>
+
+                <div class="card-number" id="waitingData">
+                    0
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    Dikonfirmasi
+                </div>
+
+                <div class="card-number" id="confirmedData">
+                    0
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    Selesai
+                </div>
+
+                <div class="card-number" id="finishedData">
+                    0
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <h2>Selamat Datang di Chiza Salon</h2>
+
+            <p>
+                Gunakan menu di sebelah kiri untuk mengelola
+                reservasi, pelanggan, treatment, dan karyawan.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESERVASI -->
+
+    <section id="reservasi" class="page">
+
+        <div class="content-box">
+
+            <div class="content-header">
+
+                <h2>Daftar Reservasi</h2>
+
+                <button class="btn-add" onclick="openAddModal()">
+                    + Tambah Reservasi
+                </button>
+
+            </div>
+
+            <div class="filter-area">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Cari nama atau nomor HP..."
+                    onkeyup="filterData"
+                >
+
+                <input
+                    type="date"
+                    id="dateFilter"
+                    onchange="filterData()"
+                >
+
+                <select
+                    id="statusFilter"
+                    onchange="filterData()"
+                >
+                    <option value="">Semua Status</option>
+                    <option>Menunggu</option>
+                    <option>Dikonfirmasi</option>
+                    <option>Selesai</option>
+                    <option>Ditolak</option>
+                </select>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Kode</th>
+                            <th>Pelanggan</th>
+                            <th>Treatment</th>
+                            <th>Jam</th>
+                            <th>Karyawan</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="reservationTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PELANGGAN -->
+
+    <section id="pelanggan" class="page">
+
+        <div class="content-box">
+
+            <div class="content-header">
+
+                <h2>Data Pelanggan</h2>
+
+                <button class="btn-add" onclick="addCustomer()">
+                    + Tambah Pelanggan
+                </button>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Pelanggan</th>
+                            <th>No. HP</th>
+                            <th>Total Reservasi</th>
+                            <th>Aksi</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="customerTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TREATMENT -->
+
+    <section id="treatment" class="page">
+
+        <div class="content-box">
+
+            <div class="content-header">
+
+                <h2>Daftar Treatment</h2>
+
+                <button class="btn-add" onclick="addTreatment()">
+                    + Tambah Treatment
+                </button>
+
+            </div>
+
+            <ul class="simple-list" id="treatmentList"></ul>
+
+        </div>
+
+    </section>
+
+
+    <!-- KARYAWAN -->
+
+    <section id="karyawan" class="page">
+
+        <div class="content-box">
+
+            <div class="content-header">
+
+                <h2>Data Karyawan</h2>
+
+                <button class="btn-add" onclick="addEmployee()">
+                    + Tambah Karyawan
+                </button>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Posisi</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="employeeTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PENGATURAN -->
+
+    <section id="pengaturan" class="page">
+
+        <div class="info-box">
+
+            <h2>Pengaturan Salon</h2>
+
+            <p>
+                Kelola informasi dan pengaturan sistem
+                Chiza Salon melalui halaman ini.
+            </p>
+
+            <br>
+
+            <label>Nama Salon</label>
+
+            <input
+                type="text"
+                value="Chiza Salon"
+                style="width:100%;padding:12px;margin-top:8px;border:1px solid #ddd;border-radius:8px;"
+            >
+
+            <br><br>
+
+            <label>Jam Operasional</label>
+
+            <input
+                type="text"
+                value="09:00 - 20:00"
+                style="width:100%;padding:12px;margin-top:8px;border:1px solid #ddd;border-radius:8px;"
+            >
+
+            <br><br>
+
+            <button
+                class="btn-add"
+                onclick="saveSettings()"
+            >
+                Simpan Pengaturan
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- MODAL RESERVASI -->
+
+<div class="modal" id="reservationModal">
+
+    <div class="modal-box">
+
+        <h2 id="modalTitle">
+            Tambah Reservasi
+        </h2>
+
+        <form id="reservationForm">
+
+            <input type="hidden" id="editIndex">
+
+            <div class="form-group">
+                <label>Kode Reservasi</label>
+
+                <input
+                    type="text"
+                    id="kode"
+                    placeholder="RSV006"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Nama Pelanggan</label>
+
+                <input
+                    type="text"
+                    id="nama"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Nomor HP</label>
+
+                <input
+                    type="text"
+                    id="hp"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+
+                <label>Treatment</label>
+
+                <select id="treatmentSelect" required>
+
+                    <option value="">
+                        -- Pilih Treatment --
+                    </option>
+
+                    <option>Haircut</option>
+                    <option>Hair Coloring</option>
+                    <option>Hair Spa</option>
+                    <option>Facial</option>
+                    <option>Manicure</option>
+                    <option>Pedicure</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label>Tanggal</label>
+
+                <input
+                    type="date"
+                    id="tanggal"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Jam</label>
+
+                <input
+                    type="time"
+                    id="jam"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Karyawan</label>
+
+                <input
+                    type="text"
+                    id="karyawanInput"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+
+                <label>Status</label>
+
+                <select id="status" required>
+
+                    <option>Menunggu</option>
+                    <option>Dikonfirmasi</option>
+                    <option>Selesai</option>
+                    <option>Ditolak</option>
+
+                </select>
+
+            </div>
+
+            <div class="modal-buttons">
+
+                <button
+                    type="button"
+                    class="btn-cancel"
+                    onclick="closeModal()"
+                >
+                    Batal
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn-save"
+                >
+                    Simpan
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let reservations = [
+
+    {
+        kode:"RSV001",
+        nama:"Irene Kaka",
+        hp:"081234567890",
+        treatment:"Hair Coloring",
+        tanggal:"2026-10-08",
+        jam:"09:00",
+        karyawan:"Karlin",
+        status:"Menunggu"
+    },
+
+    {
+        kode:"RSV002",
+        nama:"Jesty Salama",
+        hp:"082345678901",
+        treatment:"Hair Spa",
+        tanggal:"2026-10-08",
+        jam:"10:00",
+        karyawan:"Agnes",
+        status:"Dikonfirmasi"
+    },
+
+    {
+        kode:"RSV003",
+        nama:"Cicilya Mamondol",
+        hp:"083456789012",
+        treatment:"Facial",
+        tanggal:"2026-10-08",
+        jam:"11:30",
+        karyawan:"Jelvia",
+        status:"Selesai"
+    },
+
+    {
+        kode:"RSV004",
+        nama:"Natasya Togo",
+        hp:"084567890123",
+        treatment:"Manicure",
+        tanggal:"2026-10-09",
+        jam:"13:00",
+        karyawan:"Jelvia",
+        status:"Ditolak"
+    },
+
+    {
+        kode:"RSV005",
+        nama:"Vienna Bowengbengo",
+        hp:"085678901234",
+        treatment:"Pedicure",
+        tanggal:"2026-10-09",
+        jam:"14:00",
+        karyawan:"Jelvia",
+        status:"Menunggu"
+    }
+
+];
+
+
+let customers = [
+
+    {
+        nama:"Irene Kaka",
+        hp:"081234567890",
+        reservasi:1
+    },
+
+    {
+        nama:"Jesty Salama",
+        hp:"082345678901",
+        reservasi:1
+    },
+
+    {
+        nama:"Cicilya Mamondol",
+        hp:"083456789012",
+        reservasi:1
+    },
+
+    {
+        nama:"Natasya Togo",
+        hp:"084567890123",
+        reservasi:1
+    },
+
+    {
+        nama:"Vienna Bowengbengo",
+        hp:"085678901234",
+        reservasi:1
+    }
+
+];
+
+
+let treatments = [
+    ["Haircut","Rp50.000"],
+    ["Hair Coloring","Rp250.000"],
+    ["Hair Spa","Rp100.000"],
+    ["Facial","Rp120.000"],
+    ["Manicure","Rp80.000"],
+    ["Pedicure","Rp80.000"]
+];
+
+
+let employees = [
+    ["Karlin","Hair Stylist","Aktif"],
+    ["Agnes","Hair Stylist","Aktif"],
+    ["Jelvia","Beautician","Aktif"]
+];
+
+
+/* =====================================================
+   GANTI HALAMAN
+===================================================== */
+
+function showPage(pageId, element) {
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active-page");
+    });
+
+    document.getElementById(pageId).classList.add("active-page");
+
+    document.querySelectorAll(".menu a").forEach(menu => {
+        menu.classList.remove("active");
+    });
+
+    element.classList.add("active");
+
+    let titles = {
+
+        dashboard: [
+            "Dashboard",
+            "Selamat datang di sistem Chiza Salon"
+        ],
+
+        reservasi: [
+            "Reservasi",
+            "Kelola jadwal reservasi pelanggan Chiza Salon"
+        ],
+
+        pelanggan: [
+            "Pelanggan",
+            "Kelola data pelanggan Chiza Salon"
+        ],
+
+        treatment: [
+            "Treatment",
+            "Kelola layanan treatment salon"
+        ],
+
+        karyawan: [
+            "Karyawan",
+            "Kelola data karyawan Chiza Salon"
+        ],
+
+        pengaturan: [
+            "Pengaturan",
+            "Pengaturan sistem Chiza Salon"
+        ]
+
+    };
+
+    document.getElementById("pageTitle").textContent =
+        titles[pageId][0];
+
+    document.getElementById("pageDescription").textContent =
+        titles[pageId][1];
+
+}
+
+
+/* =====================================================
+   RESERVASI
+===================================================== */
+
+function displayData(data = reservations) {
+
+    let table =
+        document.getElementById("reservationTable");
+
+    table.innerHTML = "";
+
+    data.forEach(item => {
+
+        let index =
+            reservations.indexOf(item);
+
+        let statusClass =
+            item.status.toLowerCase();
+
+        let actions = "";
+
+        if(item.status === "Menunggu") {
+
+            actions = `
+
+                <button
+                    class="action-btn confirm"
+                    onclick="confirmReservation(${index})">
+                    Konfirmasi
+                </button>
+
+                <button
+                    class="action-btn reject"
+                    onclick="rejectReservation(${index})">
+                    Tolak
+                </button>
+
+            `;
+
+        }
+
+        else if(item.status === "Dikonfirmasi") {
+
+            actions = `
+
+                <button
+                    class="action-btn edit"
+                    onclick="editReservation(${index})">
+                    Ubah
+                </button>
+
+                <button
+                    class="action-btn finish"
+                    onclick="finishReservation(${index})">
+                    Selesai
+                </button>
+
+            `;
+
+        }
+
+        else {
+
+            actions = `
+
+                <button
+                    class="action-btn view"
+                    onclick="viewReservation(${index})">
+                    Lihat
+                </button>
+
+            `;
+
+        }
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>
+                    <span class="kode">
+                        ${item.kode}
+                    </span>
+                </td>
+
+                <td>
+
+                    <div class="customer-name">
+                        ${item.nama}
+                    </div>
+
+                    <div class="phone">
+                        ${item.hp}
+                    </div>
+
+                </td>
+
+                <td>
+                    ${item.treatment}
+                </td>
+
+                <td>
+                    ${item.jam}
+                </td>
+
+                <td>
+                    ${item.karyawan}
+                </td>
+
+                <td>
+
+                    <span class="status ${statusClass}">
+                        ${item.status}
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <div class="actions">
+                        ${actions}
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+    updateStatistics();
+
+}
+
+
+function updateStatistics() {
+
+    document.getElementById("totalData").textContent =
+        reservations.length;
+
+    document.getElementById("waitingData").textContent =
+        reservations.filter(
+            x => x.status === "Menunggu"
+        ).length;
+
+    document.getElementById("confirmedData").textContent =
+        reservations.filter(
+            x => x.status === "Dikonfirmasi"
+        ).length;
+
+    document.getElementById("finishedData").textContent =
+        reservations.filter(
+            x => x.status === "Selesai"
+        ).length;
+
+}
+
+
+/* =====================================================
+   SEARCH & FILTER
+===================================================== */
+
+function filterData() {
+
+    let search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    let date =
+        document
+        .getElementById("dateFilter")
+        .value;
+
+    let status =
+        document
+        .getElementById("statusFilter")
+        .value;
+
+    let result =
+        reservations.filter(item => {
+
+            let searchMatch =
+                item.nama.toLowerCase()
+                .includes(search)
+                ||
+                item.hp.includes(search);
+
+            let dateMatch =
+                date === "" ||
+                item.tanggal === date;
+
+            let statusMatch =
+                status === "" ||
+                item.status === status;
+
+            return (
+                searchMatch &&
+                dateMatch &&
+                statusMatch
+            );
+
+        });
+
+    displayData(result);
+
+}
+
+
+/* =====================================================
+   STATUS RESERVASI
+===================================================== */
+
+function confirmReservation(index) {
+
+    if(confirm("Konfirmasi reservasi ini?")) {
+
+        reservations[index].status =
+            "Dikonfirmasi";
+
+        displayData();
+
+    }
+
+}
+
+
+function rejectReservation(index) {
+
+    if(confirm("Tolak reservasi ini?")) {
+
+        reservations[index].status =
+            "Ditolak";
+
+        displayData();
+
+    }
+
+}
+
+
+function finishReservation(index) {
+
+    if(confirm("Tandai reservasi sebagai selesai?")) {
+
+        reservations[index].status =
+            "Selesai";
+
+        displayData();
+
+    }
+
+}
+
+
+function viewReservation(index) {
+
+    let item =
+        reservations[index];
+
+    alert(
+
+        "DETAIL RESERVASI\n\n" +
+
+        "Kode : " + item.kode + "\n" +
+        "Pelanggan : " + item.nama + "\n" +
+        "No. HP : " + item.hp + "\n" +
+        "Treatment : " + item.treatment + "\n" +
+        "Tanggal : " + item.tanggal + "\n" +
+        "Jam : " + item.jam + "\n" +
+        "Karyawan : " + item.karyawan + "\n" +
+        "Status : " + item.status
+
+    );
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+function openAddModal() {
+
+    document.getElementById("modalTitle").textContent =
+        "Tambah Reservasi";
+
+    document.getElementById("reservationForm").reset();
+
+    document.getElementById("editIndex").value = "";
+
+    document.getElementById("reservationModal").style.display =
+        "flex";
+
+}
+
+
+function closeModal() {
+
+    document.getElementById("reservationModal").style.display =
+        "none";
+
+}
+
+
+function editReservation(index) {
+
+    let item =
+        reservations[index];
+
+    document.getElementById("modalTitle").textContent =
+        "Ubah Reservasi";
+
+    document.getElementById("editIndex").value =
+        index;
+
+    document.getElementById("kode").value =
+        item.kode;
+
+    document.getElementById("nama").value =
+        item.nama;
+
+    document.getElementById("hp").value =
+        item.hp;
+
+    document.getElementById("treatmentSelect").value =
+        item.treatment;
+
+    document.getElementById("tanggal").value =
+        item.tanggal;
+
+    document.getElementById("jam").value =
+        item.jam;
+
+    document.getElementById("karyawanInput").value =
+        item.karyawan;
+
+    document.getElementById("status").value =
+        item.status;
+
+    document.getElementById("reservationModal").style.display =
+        "flex";
+
+}
+
+
+document
+.getElementById("reservationForm")
+.addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    let index =
+        document.getElementById("editIndex").value;
+
+    let data = {
+
+        kode:
+            document.getElementById("kode").value,
+
+        nama:
+            document.getElementById("nama").value,
+
+        hp:
+            document.getElementById("hp").value,
+
+        treatment:
+            document.getElementById("treatmentSelect").value,
+
+        tanggal:
+            document.getElementById("tanggal").value,
+
+        jam:
+            document.getElementById("jam").value,
+
+        karyawan:
+            document.getElementById("karyawanInput").value,
+
+        status:
+            document.getElementById("status").value
+
+    };
+
+    if(index === "") {
+
+        reservations.push(data);
+
+        alert("Reservasi berhasil ditambahkan!");
+
+    }
+
+    else {
+
+        reservations[index] = data;
+
+        alert("Reservasi berhasil diubah!");
+
+    }
+
+    displayData();
+
+    closeModal();
+
+});
+
+
+/* =====================================================
+   PELANGGAN
+===================================================== */
+
+function displayCustomers() {
+
+    let table =
+        document.getElementById("customerTable");
+
+    table.innerHTML = "";
+
+    customers.forEach((customer,index) => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${index + 1}</td>
+
+                <td>
+                    <b>${customer.nama}</b>
+                </td>
+
+                <td>
+                    ${customer.hp}
+                </td>
+
+                <td>
+                    ${customer.reservasi}
+                </td>
+
+                <td>
+
+                    <button
+                        class="action-btn edit"
+                        onclick="editCustomer(${index})">
+                        Ubah
+                    </button>
+
+                    <button
+                        class="action-btn reject"
+                        onclick="deleteCustomer(${index})">
+                        Hapus
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+function addCustomer() {
+
+    let nama =
+        prompt("Masukkan nama pelanggan:");
+
+    if(!nama) return;
+
+    let hp =
+        prompt("Masukkan nomor HP:");
+
+    if(!hp) return;
+
+    customers.push({
+        nama:nama,
+        hp:hp,
+        reservasi:0
+    });
+
+    displayCustomers();
+
+    alert("Pelanggan berhasil ditambahkan!");
+
+}
+
+
+function editCustomer(index) {
+
+    let nama =
+        prompt(
+            "Ubah nama pelanggan:",
+            customers[index].nama
+        );
+
+    if(!nama) return;
+
+    customers[index].nama = nama;
+
+    displayCustomers();
+
+}
+
+
+function deleteCustomer(index) {
+
+    if(
+        confirm(
+            "Hapus pelanggan ini?"
+        )
+    ) {
+
+        customers.splice(index,1);
+
+        displayCustomers();
+
+    }
+
+}
+
+
+/* =====================================================
+   TREATMENT
+===================================================== */
+
+function displayTreatments() {
+
+    let list =
+        document.getElementById("treatmentList");
+
+    list.innerHTML = "";
+
+    treatments.forEach((item,index) => {
+
+        list.innerHTML += `
+
+            <li>
+
+                <span>
+                    <b>${item[0]}</b>
+                </span>
+
+                <span>
+
+                    ${item[1]}
+
+                    <button
+                        class="action-btn edit"
+                        onclick="editTreatment(${index})">
+                        Ubah
+                    </button>
+
+                    <button
+                        class="action-btn reject"
+                        onclick="deleteTreatment(${index})">
+                        Hapus
+                    </button>
+
+                </span>
+
+            </li>
+
+        `;
+
+    });
+
+}
+
+
+function addTreatment() {
+
+    let nama =
+        prompt("Nama treatment:");
+
+    if(!nama) return;
+
+    let harga =
+        prompt("Harga treatment:");
+
+    if(!harga) return;
+
+    treatments.push([
+        nama,
+        harga
+    ]);
+
+    displayTreatments();
+
+}
+
+
+function editTreatment(index) {
+
+    let nama =
+        prompt(
+            "Nama treatment:",
+            treatments[index][0]
+        );
+
+    if(!nama) return;
+
+    let harga =
+        prompt(
+            "Harga:",
+            treatments[index][1]
+        );
+
+    if(!harga) return;
+
+    treatments[index] = [
+        nama,
+        harga
+    ];
+
+    displayTreatments();
+
+}
+
+
+function deleteTreatment(index) {
+
+    if(
+        confirm(
+            "Hapus treatment ini?"
+        )
+    ) {
+
+        treatments.splice(index,1);
+
+        displayTreatments();
+
+    }
+
+}
+
+
+/* =====================================================
+   KARYAWAN
+===================================================== */
+
+function displayEmployees() {
+
+    let table =
+        document.getElementById("employeeTable");
+
+    table.innerHTML = "";
+
+    employees.forEach((employee,index) => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${index + 1}</td>
+
+                <td>
+                    <b>${employee[0]}</b>
+                </td>
+
+                <td>
+                    ${employee[1]}
+                </td>
+
+                <td>
+
+                    <span class="status dikonfirmasi">
+                        ${employee[2]}
+                    </span>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+function addEmployee() {
+
+    let nama =
+        prompt("Nama karyawan:");
+
+    if(!nama) return;
+
+    let posisi =
+        prompt("Posisi karyawan:");
+
+    if(!posisi) return;
+
+    employees.push([
+        nama,
+        posisi,
+        "Aktif"
+    ]);
+
+    displayEmployees();
+
+    alert(
+        "Karyawan berhasil ditambahkan!"
+    );
+
+}
+
+
+/* =====================================================
+   PENGATURAN
+===================================================== */
+
+function saveSettings() {
+
+    alert(
+        "Pengaturan berhasil disimpan!"
+    );
+
+}
+
+
+/* =====================================================
+   KELUAR
+===================================================== */
+
+function logout() {
+
+    let keluar =
+        confirm(
+            "Apakah Anda yakin ingin keluar?"
+        );
+
+    if(keluar) {
+
+        alert(
+            "Anda telah keluar dari sistem."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   MODAL KLIK LUAR
+===================================================== */
+
+window.onclick = function(event) {
+
+    let modal =
+        document.getElementById("reservationModal");
+
+    if(event.target === modal) {
+
+        closeModal();
+
+    }
+
+};
+
+
+/* =====================================================
+   JALANKAN AWAL
+===================================================== */
+
+displayData();
+
+displayCustomers();
+
+displayTreatments();
+
+displayEmployees();
+
+</script>
+
+</body>
+</html>
